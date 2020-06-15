@@ -1,0 +1,37 @@
+Period;Value;Technique
+1979-1991;195,1428571;Neural Networks
+1991-2003;263,3333333;Neural Networks
+2003-2015;569,6923077;Neural Networks
+1979-1991;1;Machine Learning
+1991-2003;6,5;Machine Learning
+2003-2015;177,6923077;Machine Learning
+1979-1991;69,33333333;Expert Systems
+1991-2003;47,58333333;Expert Systems
+2003-2015;65,61538462;Expert Systems
+1979-1991;0;Support Vector Machine
+1991-2003;9;Support Vector Machine
+2003-2015;214,7692308;Support Vector Machine
+1979-1991;15;Fuzzy Logic
+1991-2003;53,91666667;Fuzzy Logic
+2003-2015;39;Fuzzy Logic
+1979-1991;2,333333333;Graphical Model
+1991-2003;4,833333333;Graphical Model
+2003-2015;20,07692308;Graphical Model
+1979-1991;1,5;Sup. and Uns. Learning
+1991-2003;2,666666667;Sup. and Uns. Learning
+2003-2015;26,07692308;Sup. and Uns. Learning
+1979-1991;2;Deep Learning
+1991-2003;1,333333333;Deep Learning
+2003-2015;75,28571429;Deep Learning
+1979-1991;1,5;Class. and Reg. Trees
+1991-2003;5,636363636;Class. and Reg. Trees
+2003-2015;11,84615385;Class. and Reg. Trees
+1979-1991;1,5;Reinforced Learning
+1991-2003;2,75;Reinforced Learning
+2003-2015;14,61538462;Reinforced Learning
+1979-1991;1,875;Logic Programming
+1991-2003;1,444444444;Logic Programming
+2003-2015;6,166666667;Logic Programming
+1979-1991;2;Rule Learning
+1991-2003;3;Rule Learning
+2003-2015;2,75;Rule Learning
