@@ -1,8 +1,5 @@
 #clear your global environment
 rm(list=ls())
-#set working directory to the folder where you saved the csv files. Assuming that you saved the files together with
-#this R code, we can set to it by doing:
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #Load libraries we will use:
 library(ggplot2)
@@ -12,8 +9,8 @@ library(plyr)
 
 
 #1.Raw data analysis ----
-maindata2 <- read.csv("Query 3_Full dataset.csv", sep = ";", header = TRUE)
-priorfildata <- read.csv("Query 4 - Priorities.csv", sep = ";", header = TRUE)
+maindata2 <- read.csv("data/Query 3_Full dataset.csv", sep = ";", header = TRUE)
+priorfildata <- read.csv("data/Query 4 - Priorities.csv", sep = ";", header = TRUE)
 
 
 #Keep only Patents of Invention (PI), thus excluding Utility Models (UM) and Design Patents (DP)
@@ -55,14 +52,14 @@ tabledata2 <- merge(tabledata2, PCTPatents, all=TRUE, by=c("Country_code", "Year
 tabledata2[is.na(tabledata2)] <- 0
 
 #include number of inventions per country independently of appln kind:
-infopatentspercountry <-read.csv("InfopartialTSummbycountry.csv", sep = ";", header = TRUE)
+infopatentspercountry <-read.csv("data/InfopartialTSummbycountry.csv", sep = ";", header = TRUE)
 infopatentspercountry <- infopatentspercountry[ , c((-1),(-4),(-5),(-6),(-7))]
 names(infopatentspercountry) <- c("Country_code", "Year", "TotalPatentsCountry")
 tabledata2 <- merge(tabledata2, infopatentspercountry, all=FALSE, by=c("Country_code", "Year"))
 tabledata2[is.na(tabledata2)] <- 0
 
 #include total number of inventions of all countries per year independently of appln kind:
-infopatentstotalcountry <-read.csv("InfototalT1SummAllYears.csv", sep = ";", header = TRUE)
+infopatentstotalcountry <-read.csv("data/InfototalT1SummAllYears.csv", sep = ";", header = TRUE)
 infopatentstotalcountry <- infopatentstotalcountry[ , c((-1),(-3),(-4),(-5),(-6))]
 names(infopatentstotalcountry) <- c("Year", "TotalNumberofPatentsYear")
 tabledata2 <- merge(tabledata2, infopatentstotalcountry, by = "Year")
@@ -167,7 +164,7 @@ is.nan.data.frame <- function(x)
 newtable[is.nan(newtable)] <- 0
 
 #use countries names instead of codes:
-countries <- read.csv("countries.csv", sep = ";", header = TRUE)
+countries <- read.csv("data/countries.csv", sep = ";", header = TRUE)
 newtable$Country <- countries$Country[match(newtable$Country, countries$Symb1)]
 
 newtableshort <- newtable
@@ -270,7 +267,7 @@ multiplot(f1, t2, cols=1)
 
 #For the techniques figure, we have already separated the data (which we did by selecting the keywords from the title
 #and abstract data)
-DataFig1 <- read.csv("DataFig1topics2.csv", sep = ";", header = TRUE, dec = ",")
+DataFig1 <- read.csv("data/DataFig1topics2.csv", sep = ";", header = TRUE, dec = ",")
 TechniquesEvolution <- DataFig1$Technique[order(DataFig1$Value, decreasing = TRUE)]
 cdat <- ddply(DataFig1, "Period", summarise, Value.mean=mean(Value))
 
