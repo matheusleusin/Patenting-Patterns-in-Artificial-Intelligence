@@ -70,7 +70,7 @@ names(AIpatents) <- c("Year", "TotalNumberofAIPatentsYear")
 tabledata2 <- merge(tabledata2, AIpatents, by = "Year")
 
 #let's save our dataset before applying the calculations
-write.csv2((tabledata2), file = "AllinformationB4calculations.csv", row.names = TRUE)
+write.csv2((tabledata2), file = "AllinformationB4calculations.csv", row.names = F)
 
 #2.Calculations ----
 #first we read the file we just saved
@@ -78,7 +78,6 @@ tabledata3 <- read.csv("AllinformationB4calculations.csv", sep = ";", header = T
 
 #select the time period we want in a new dataset
 tabledata3 <-tabledata3[tabledata3$Year > 1980,]
-tabledata3 <- tabledata3[ , (-1)]
 
 #cut in 3 periods of 12 years each
 tabledata3$Period <- cut(tabledata3$Year, breaks= c(1,1991, 2003, 2016), 
@@ -108,13 +107,12 @@ newtable$BreedingGroundInt2 <- (newtable$FreqW*newtable$FreqN)/newtable$Weighted
 names(newtable)[names(newtable) == 'Group.1'] <- 'Country'
 names(newtable)[names(newtable) == 'Group.2'] <- 'Period'
 
-write.csv2((newtable), file = "InformationByPeriodwithcalculations.csv", row.names = TRUE)
+write.csv2((newtable), file = "InformationByPeriodwithcalculations.csv", row.names = F)
 
 #3.Visualization ----
 #first we read the table we just created:
 rm(list=ls())
 newtable <- read.csv("InformationByPeriodwithcalculations.csv", sep = ";", header = TRUE, dec = ",")
-newtable <- newtable[ , (-1)]
 #now we create the multiple plot function (from  http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2))
 #which allows us to plot multiple graphs in 1 figure
 
