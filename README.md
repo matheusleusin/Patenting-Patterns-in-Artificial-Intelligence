@@ -3,7 +3,7 @@
 The repository presented here is related to the paper entitled "Patenting Patterns in Artificial Intelligence: 
 Identifying National and International Breeding Grounds", submitted to the journal "World Patent Information". Short description of the paper:
 
-# This repository includes:
+## This repository includes:
 1. One R code for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
 2. Data necessary for these calculations;
 3. Data used for making the comparison between three distinct queries used for searching AI patents: ours, based on keywords related to AI techniques and proposed on this paper,  and two other strategies, applied by C.-Y. Tseng, P.-H. Ting (2013) and H. Fujii, S. Managi (2018), which are based on IPC codes.
@@ -13,7 +13,7 @@ Identifying National and International Breeding Grounds", submitted to the journ
 1. C.-Y. Tseng, P.-H. Ting, Patent analysis for technology development of artificial intelligence: A country-level comparative study, Innovation 15(4) (2013) 463-475.
 2. H. Fujii, S. Managi, Trends and priority shifts in artificial intelligence technology invention: A global patent analysis, Economic Analysis and Policy 58 (2018) 60-69.
 
-# A detailed description of each data file is provided below
+## Detailed description of each data file:
 
 Data related to the code "Code_for_calculating_and_ploting_indicators.R":
 countries.csv →
