@@ -5,8 +5,8 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ## This repository includes:
 1. One R code for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
-2. Data necessary for these calculations;
-3. Data used for making the comparison between three distinct queries used for searching AI patents: ours, based on keywords related to AI techniques and proposed on this paper,  and two other strategies, applied by C.-Y. Tseng, P.-H. Ting (2013) and H. Fujii, S. Managi (2018), which are based on IPC codes.
+2. Data necessary for the calculations related to the indexes;
+3. Data used for making the comparison between three distinct queries used for searching AI patents: ours, based on keywords related to AI techniques and proposed on this paper,  and two other strategies based on IPC codes, applied by C.-Y. Tseng, P.-H. Ting (2013) and H. Fujii, S. Managi (2018).
 4. One R code for analyzing the aforementioned comparison, which consists of a code for merging our classification of patents being about AI or not with the appln_ids to which they are related.
 
 ### Papers cited for the IPC-based strategies on AI: 
