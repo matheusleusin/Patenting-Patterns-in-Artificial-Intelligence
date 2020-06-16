@@ -17,18 +17,28 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 Data related to the code "Code_for_calculating_and_ploting_indicators.R":
 countries.csv →
+
 DataFig1topics2.csv →
+
 InfopartialTSummbycountry.csv →
+
 InfototalT1SummAllYears.csv →
+
 Info_Titles.csv →
+
 Info_Abstracts.xlsx →
+
 Info_Full dataset.csv →
+
 Info_Priorities.csv →
 
 Data related to the code "Comparison_AI_patents_identification_strategies.R":
 
 merged.csv → 
+
 MyQuery1_100.csv → 
+
 NotIn1_Query3_unique_100.csv →
+
 NotIn1_Query4_unique_100.csv → 
 
