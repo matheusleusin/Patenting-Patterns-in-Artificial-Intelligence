@@ -39,7 +39,11 @@ merged.csv →
 
 MyQuery1_100.csv → 
 
-NotIn1_Query3_unique_100.csv →
+Query2 →
 
-NotIn1_Query4_unique_100.csv → 
+Query3 →
+
+NotIn1_Query2_unique_100.csv →
+
+NotIn1_Query3_unique_100.csv → 
 
