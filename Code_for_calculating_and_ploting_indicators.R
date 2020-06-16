@@ -1,5 +1,7 @@
 #clear your global environment
 rm(list=ls())
+#set working directory:
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #Load libraries we will use:
 library(ggplot2)
@@ -9,8 +11,8 @@ library(plyr)
 
 
 #1.Raw data analysis ----
-maindata2 <- read.csv("data/Query 3_Full dataset.csv", sep = ";", header = TRUE)
-priorfildata <- read.csv("data/Query 4 - Priorities.csv", sep = ";", header = TRUE)
+maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+priorfildata <- read.csv("data/Info_Priorities.csv", sep = ";", header = TRUE)
 
 
 #Keep only Patents of Invention (PI), thus excluding Utility Models (UM) and Design Patents (DP)
@@ -279,85 +281,3 @@ techniques <- ggplot(subset(DataFig1, Technique %in% TechniquesEvolution),aes(x 
 
 #plot figure:
 techniques
-
-
-#4.Techniques -----
-rm(list=ls())
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-titledata <-read.csv("Query 1 - Search only for keyTitles.csv", sep = ";", header = TRUE)
-abstractdata <-read.csv("Query 2_Abstracts_reducedcsv.csv", sep = ";", header = TRUE)
-
-abstractdata$appln_abstract <- tolower(abstractdata$appln_abstract)
-titledata$appln_title <- tolower(titledata$appln_title)
-
-maindata2 <- read.csv("Query 3_Full dataset.csv", sep = ";", header = TRUE)
-priorfildata <- read.csv("Query 4 - Priorities.csv", sep = ";", header = TRUE)
-
-#save country of origin
-maindata2$countryoforigin <- priorfildata$appln_auth[match(maindata2$earliest_filing_id, priorfildata$appln_id)]
-
-maindata2$appln_title <- titledata$appln_title[match(maindata2$appln_id, titledata$appln_id)]
-maindata2$appln_abstract <- abstractdata$appln_abstract[match(maindata2$appln_id, abstractdata$appln_id)]
-
-#1. Start of the specific keyword dataset: Neural networks ----
-#recome?ar o dataset do 0 a partir do maindata2, excluindo ao mesmo tempo os Utility models:
-maindata <- maindata2[which(maindata2$ipr_type == 'PI'), ]
-
-
-Neuralnetworks <- unique(c(grep("neural network", maindata$appln_abstract),
-                           grep("neural network", maindata$appln_title)))
-NeuralnetworksSet <- maindata[Neuralnetworks, ]
-maindata <- NeuralnetworksSet
-# create a function with the priorities of the maindata
-priorities <- maindata[which(maindata$earliest_filing_id == maindata$appln_id), ]
-# create a function with the non priorities of the maindata
-nonpriorities <- maindata[which(maindata$earliest_filing_id != maindata$appln_id), ]
-table(maindata$appln_kind)
-#create priorities based on appln kinds A and W: I CAN CUT THIS DISTINCTION
-NoPCTPriorities <- priorities[which(priorities$appln_kind == 'A '), ]
-YesPCTPriorities <- priorities[which(priorities$appln_kind == 'W '), ]
-
-#or do both in one:
-PrioritiesAorW <- priorities[which(priorities$appln_kind == 'A '|priorities$appln_kind == 'W '), ]
-
-
-#collect number count of priorities, non priorities and where they go
-sumpriorities <- as.data.frame(table(priorities$appln_auth, priorities$appln_filing_year))
-sumnonpriorities <- as.data.frame(table(nonpriorities$appln_auth, nonpriorities$appln_filing_year))
-wheretheygo <- as.data.frame(table(nonpriorities$countryoforigin, nonpriorities$appln_filing_year))
-NoPCTPatents <- as.data.frame(table(NoPCTPriorities$countryoforigin, NoPCTPriorities$appln_filing_year))
-PCTPatents <- as.data.frame(table(YesPCTPriorities$countryoforigin, YesPCTPriorities$appln_filing_year))
-
-1888+149
-sum(PCTPatents$Freq)
-sum(YesPCTPriorities$Freq)
-
-#rename columns
-names(sumpriorities) <- c("Country_code", "Year", "FreqP")
-names(sumnonpriorities) <- c("Country_code", "Year", "FreqN")
-names(wheretheygo) <- c("Country_code", "Year", "FreqW")
-names(NoPCTPatents) <- c("Country_code", "Year", "NoPCTPatents")
-names(PCTPatents) <- c("Country_code", "Year", "PCTPatents")
-
-tabledata2 <- merge(sumpriorities, wheretheygo, all=TRUE, by=c("Country_code", "Year"))
-tabledata2 <- merge(tabledata2, NoPCTPatents, all=TRUE, by=c("Country_code", "Year"))
-tabledata2 <- merge(tabledata2, PCTPatents, all=TRUE, by=c("Country_code", "Year"))
-tabledata2[is.na(tabledata2)] <- 0
-
-write.csv2((tabledata2), file = "Testing.csv", row.names = TRUE)
-
-#start of calculations ----
-tabledata3 <- read.csv("Testing.csv", sep = ";", header = TRUE)
-tabledata3 <-tabledata3[tabledata3$Year > 1980,]
-tabledata3 <- tabledata3[ , (-1)]
-
-tabledata3$Period <- cut(tabledata3$Year, breaks= c(1,1991, 2003, 2016), 
-                         labels=c('1979-1991', '1991-2003', '2003-2015'))
-
-newtable <- aggregate(tabledata3[, 2:7], list(tabledata3$Country_code, tabledata3$Period), mean)
-write.csv2((newtable), file = "Testing2.csv", row.names = TRUE)
-
-
-
-
-

@@ -1,11 +1,16 @@
-setwd("C:/Users/Matheus/Google Drive/PhD/1.Paper 1 - Patent Analysis/0.Tudo escrito mais EMAEE e Workshop/Greenhouses nova versão Paper Patents/1.FINAL version after editor comments/r codes")
+#clear your global environment
 rm(list=ls())
-#1.Raw data analysis ----
+#set working directory:
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-titledata <-read.csv("Info_Titles.csv", sep = ";", header = TRUE)
-abstractdata <-read.csv("Info_Abstracts.xlsx", sep = ";", header = TRUE)
-maindata2 <- read.csv("Info__Full dataset.csv", sep = ";", header = TRUE)
-priorfildata <- read.csv("Info_Priorities.csv", sep = ";", header = TRUE)
+#load library to read the xlsx abstract file
+library("readxl")
+
+#1.Raw data analysis ----
+titledata <-read.csv("data/Info_Titles.csv", sep = ";", header = TRUE)
+abstractdata <-read_excel("data/Info_Abstracts.xlsx")
+maindata2 <- read.csv("data/Info__Full dataset.csv", sep = ";", header = TRUE)
+priorfildata <- read.csv("data/Info_Priorities.csv", sep = ";", header = TRUE)
 
 abstractdata$appln_abstract <- tolower(abstractdata$appln_abstract)
 titledata$appln_title <- tolower(titledata$appln_title)
@@ -27,20 +32,9 @@ rm(titledata)
 
 length(unique(priorities$appln_id)) #23,416
 
-setwd("C:/Users/Matheus/Desktop/IPC search test paper 1")
-#setwd("C:/Users/mathe/OneDrive/?rea de Trabalho/IPC search test paper 1")
 write.csv2(priorities, file = "MyQuery1.csv", row.names = TRUE)
-#Query 2
-Query2 <- read.csv("Query 2.csv", sep = ";", header = F)
-names(Query2) <- c("appln_id", "ipc_class_symbol", "appln_title", "appln_abstract", "ipr_type ")
-Query2 <- Query2[which(Query2$ipr_type == 'PI'), ] #30,093 priorities
-library(stringr)
-Query2$appln_id <- gsub("ï»¿", "", str_trim(Query2$appln_id))
-'%notin%' <- Negate('%in%')
-NotInQuery2 <- Query2[Query2$appln_id %notin% priorities$appln_id,]
-write.csv2(NotInQuery2, file = "NotInQuery2.csv", row.names = TRUE)
 
-#Query 3
+#Query 2
 Query3 <- read.csv("Query 3.csv", sep = ";", header = F)
 names(Query3) <- c("appln_id", "ipc_class_symbol", "appln_title", "appln_abstract", "ipr_type ")
 Query3 <- Query3[which(Query3$ipr_type == 'PI'), ] #30,082 priorities
@@ -50,7 +44,10 @@ length(unique(Query3$appln_id)) #23,599 priorities
 NotInQuery3 <- Query3[Query3$appln_id %notin% priorities$appln_id,]
 
 write.csv2(NotInQuery3, file = "NotInQuery3.csv", row.names = TRUE)
-library(tidyverse)
+
+#load library used for excluding duplicates
+library(tidyverse) 
+
 NotInQuery3_unique <- NotInQuery3[!duplicated(NotInQuery3$appln_id), ]
 NotInQuery3_unique$appln_abstract <- tolower(NotInQuery3_unique$appln_abstract)
 NotInQuery3_unique$appln_title <- tolower(NotInQuery3_unique$appln_title)
@@ -79,7 +76,6 @@ write.csv2(NotInQuery4_unique, file = "NotInQuery4_unique2.csv", row.names = TRU
 write.csv2(table(Query4$ipc_class_symbol), file = "TableQuery4ClassSymbol2.csv", row.names = TRUE)
 
 #2.Comparison Queries ----
-setwd("C:/Users/Matheus/Google Drive/PhD/1.Paper 1 - Patent Analysis/0.Tudo escrito mais EMAEE e Workshop/Greenhouses nova versão Paper Patents/1.FINAL version after editor comments/r codes/important ones")
 rm(list=ls())
 
 #load merged400 data;
