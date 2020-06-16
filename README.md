@@ -10,8 +10,8 @@ Identifying National and International Breeding Grounds", submitted to the journ
 4. One R code for analyzing the aforementioned comparison, which consists of a code for merging our classification of patents being about AI or not with the appln_ids to which they are related.
 
 ### Papers cited for the IPC-based strategies on AI: 
-C.-Y. Tseng, P.-H. Ting, Patent analysis for technology development of artificial intelligence: A country-level comparative study, Innovation 15(4) (2013) 463-475.
-H. Fujii, S. Managi, Trends and priority shifts in artificial intelligence technology invention: A global patent analysis, Economic Analysis and Policy 58 (2018) 60-69.
+1. C.-Y. Tseng, P.-H. Ting, Patent analysis for technology development of artificial intelligence: A country-level comparative study, Innovation 15(4) (2013) 463-475.
+2. H. Fujii, S. Managi, Trends and priority shifts in artificial intelligence technology invention: A global patent analysis, Economic Analysis and Policy 58 (2018) 60-69.
 
 # A detailed description of each data file is provided below
 
