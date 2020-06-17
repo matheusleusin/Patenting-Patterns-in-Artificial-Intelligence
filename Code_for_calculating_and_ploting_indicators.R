@@ -1,3 +1,6 @@
+#This code is used for calculating the indicators proposed in the paper and to plot the results, as it is presented in the Figures 3 to 8
+#in the paper.
+
 #clear your global environment
 rm(list=ls())
 #set working directory:
@@ -11,11 +14,17 @@ library(plyr)
 
 
 #1.Raw data analysis ----
+#On the first part of the analysis, we will load our data
+
+#We start by loading all patents we collected:
 maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+
+#and then we load the data from priorities. this data is used as reference only for identifying the patent office where
+#each priority was filled:
 priorfildata <- read.csv("data/Info_Priorities.csv", sep = ";", header = TRUE)
 
-
-#Keep only Patents of Invention (PI), thus excluding Utility Models (UM) and Design Patents (DP)
+#Now we separate the patents by kind, keeping only Patents of Invention (PI) and excluding Utility Models (UM) 
+#and Design Patents (DP)
 maindata <- maindata2[which(maindata2$ipr_type == 'PI'), ]
 
 #save the information of the Patent Office where the earliest filing was applied
@@ -30,7 +39,8 @@ nonpriorities <- maindata[which(maindata$earliest_filing_id != maindata$appln_id
 NoPCTPriorities <- priorities[which(priorities$appln_kind == 'A '), ]
 YesPCTPriorities <- priorities[which(priorities$appln_kind == 'W '), ]
 
-#collect number count of priorities, non priorities and where they go
+#collect number count of priorities, non priorities and where they go (being the where they go indicator what we refer
+#in the paper as "AI patents going abroad_Country")
 sumpriorities <- as.data.frame(table(priorities$appln_auth, priorities$appln_filing_year))
 sumnonpriorities <- as.data.frame(table(nonpriorities$appln_auth, nonpriorities$appln_filing_year))
 wheretheygo <- as.data.frame(table(nonpriorities$countryoforigin2, nonpriorities$appln_filing_year))
@@ -53,20 +63,28 @@ tabledata2 <- merge(tabledata2, PCTPatents, all=TRUE, by=c("Country_code", "Year
 #replace NA values by 0
 tabledata2[is.na(tabledata2)] <- 0
 
-#include number of inventions per country independently of appln kind:
+#Now we include number of inventions per country independently of appln kind. We have already collected and summarized
+#the data we use here by collecting all priority patents from patstat that each country filled in each year. This
+#indicator is the indicator named "Total Patents_Country", presented in the equation 2 of the paper.
 infopatentspercountry <-read.csv("data/InfopartialTSummbycountry.csv", sep = ";", header = TRUE)
 infopatentspercountry <- infopatentspercountry[ , c((-1),(-4),(-5),(-6),(-7))]
 names(infopatentspercountry) <- c("Country_code", "Year", "TotalPatentsCountry")
+
+
 tabledata2 <- merge(tabledata2, infopatentspercountry, all=FALSE, by=c("Country_code", "Year"))
 tabledata2[is.na(tabledata2)] <- 0
 
-#include total number of inventions of all countries per year independently of appln kind:
+#include total number of inventions of all countries per year independently of appln kind. Again, we have already 
+#collected and summarized the data we use here by collecting all priority patents from patstat per year (that is, regardless
+#of which country filled them) per year. This indicator is the indicator named "Global Number of Patents", presented in the 
+#equation 2 of the paper.
 infopatentstotalcountry <-read.csv("data/InfototalT1SummAllYears.csv", sep = ";", header = TRUE)
 infopatentstotalcountry <- infopatentstotalcountry[ , c((-1),(-3),(-4),(-5),(-6))]
 names(infopatentstotalcountry) <- c("Year", "TotalNumberofPatentsYear")
 tabledata2 <- merge(tabledata2, infopatentstotalcountry, by = "Year")
 
-#include info about all patents generated in AI per year regarding the distinct appln_kinds
+#include info about all patents generated in AI per year regarding the distinct appln_kinds. We already have this in our
+#priorities dataset.
 AIpatents <- as.data.frame(table(priorities$appln_filing_year))
 names(AIpatents) <- c("Year", "TotalNumberofAIPatentsYear")
 tabledata2 <- merge(tabledata2, AIpatents, by = "Year")
@@ -75,7 +93,9 @@ tabledata2 <- merge(tabledata2, AIpatents, by = "Year")
 write.csv2((tabledata2), file = "AllinformationB4calculations.csv", row.names = F)
 
 #2.Calculations ----
-#first we read the file we just saved
+#Let's clear again our global environment
+rm(list=ls())
+#and then we read the file we just saved
 tabledata3 <- read.csv("AllinformationB4calculations.csv", sep = ";", header = TRUE)
 
 #select the time period we want in a new dataset
@@ -88,15 +108,7 @@ tabledata3$Period <- cut(tabledata3$Year, breaks= c(1,1991, 2003, 2016),
 #and aggregate it by the mean of each period
 newtable <- aggregate(tabledata3[, 2:11], list(tabledata3$Country_code, tabledata3$Period), mean)
 
-#for data annually:
-tabledata3$SpecialisationIndice <- (tabledata3$FreqP/tabledata3$TotalPatentsCountry)/(tabledata3$TotalNumberofAIPatentsYear/tabledata3$TotalNumberofPatentsYear)
-tabledata3$WeightedPatents <- tabledata3$NoPCTPatents + (tabledata3$PCTPatents)*6
-tabledata3$Sources <- tabledata3$SpecialisationIndice*tabledata3$FreqP
-tabledata3$Sources2 <- tabledata3$WeightedPatents*tabledata3$SpecialisationIndice
-tabledata3$BreedingGroundInt <- (tabledata3$FreqW*tabledata3$FreqN)/tabledata3$FreqP
-tabledata3$BreedingGroundInt2 <- (tabledata3$FreqW*tabledata3$FreqN)/tabledata3$WeightedPatents
-
-#for data per periods:
+#for calculating the indexes:
 newtable$SpecialisationIndice <- (newtable$FreqP/newtable$TotalPatentsCountry)/(newtable$TotalNumberofAIPatentsYear/newtable$TotalNumberofPatentsYear)
 newtable$NoPCTPatents <- as.numeric(newtable$NoPCTPatents)
 newtable$PCTPatents <- as.numeric(newtable$PCTPatents)
@@ -112,12 +124,13 @@ names(newtable)[names(newtable) == 'Group.2'] <- 'Period'
 write.csv2((newtable), file = "InformationByPeriodwithcalculations.csv", row.names = F)
 
 #3.Visualization ----
-#first we read the table we just created:
+#let's clear our environment again
 rm(list=ls())
+#and again we read the table we just created:
 newtable <- read.csv("InformationByPeriodwithcalculations.csv", sep = ";", header = TRUE, dec = ",")
+
 #now we create the multiple plot function (from  http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2))
 #which allows us to plot multiple graphs in 1 figure
-
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   library(grid)
   
@@ -175,8 +188,7 @@ topRTAs <- testsads2$Country[order(testsads2$SpecialisationIndice, decreasing = 
 
 cdat <- ddply(subset(newtable, Country %in% topRTAs [1 : 20]), "Period", summarise, Value.mean=mean(SpecialisationIndice))
 
-#Figure 2: Top 20 Patent Offices according to (and sorted by) the sum of their RTAs over three periods.
-
+#Figure 3: Top 20 Patent Offices according to (and sorted by) the sum of their RTAs over three periods.
 RTAs <- ggplot(subset(newtable, Country %in% topRTAs [1 : 20]),aes(x = SpecialisationIndice, y=reorder(Country, SpecialisationIndice), group=Period)) + geom_point(aes(shape=Period, color=Period, size = Period)) + 
   ggtitle(NULL) +
   geom_vline(data=cdat, aes(xintercept=Value.mean,  color=Period),
@@ -188,7 +200,7 @@ RTAs <- ggplot(subset(newtable, Country %in% topRTAs [1 : 20]),aes(x = Specialis
 #Plot Figure:
 RTAs
 
-#Figures 3 (r1) and 4 (r2): Top 15 Patent offices which are considered National AI Breeding Grounds, according to 
+#Figures 4 (r1) and 5 (r2): Top 15 Patent offices which are considered National AI Breeding Grounds, according to 
 #the Nat Breeding Grounds_Countryp and the Nat Breeding Grounds_Weighted_Countryp indicators, respectively
 newtable$WeightedPatents <- (newtable$NoPCTPatents)/5 + (newtable$PCTPatents)*5
 newtable$Sources2 <- newtable$WeightedPatents*newtable$SpecialisationIndice
@@ -224,7 +236,7 @@ r2 <- ggplot(subset(newtable, Country %in% topSources2 [1 : 15]),aes(x = log10(S
 #plot figures:
 multiplot(r1, r2, cols=1)
 
-#Figures 5 (f1) and 6 (t2): Top 15 Patent Offices which are considered International Breeding Grounds, according to 
+#Figures 6 (f1) and 7 (t2): Top 15 Patent Offices which are considered International Breeding Grounds, according to 
 #the Int BreedingGround_Countryp and the Int BreedingGround_Weighted_Countryp indicators, respectively. 
 newtable$WeightedPatents <- (newtable$NoPCTPatents)/5 + (newtable$PCTPatents)*5
 newtable$BreedingGroundInt2 <- (newtable$FreqW*newtable$FreqN)/newtable$WeightedPatents
@@ -265,13 +277,13 @@ t2 <- ggplot(subset(newtable, Country %in% topBreedingGrounds3 [1 : 27]),aes(x =
 #plot figures:
 multiplot(f1, t2, cols=1)
 
-#For the techniques figure, we have already separated the data (which we did by selecting the keywords from the title
-#and abstract data)
-DataFig1 <- read.csv("data/DataFig1topics2.csv", sep = ";", header = TRUE, dec = ",")
-TechniquesEvolution <- DataFig1$Technique[order(DataFig1$Value, decreasing = TRUE)]
-cdat <- ddply(DataFig1, "Period", summarise, Value.mean=mean(Value))
+#For the techniques figure (Fig 8), we have already separated the data (which we did by selecting the keywords from the title
+#and abstract data):
+DataFig8 <- read.csv("data/DataFig8topics.csv", sep = ";", header = TRUE, dec = ",")
+TechniquesEvolution <- DataFig8$Technique[order(DataFig8$Value, decreasing = TRUE)]
+cdat <- ddply(DataFig8, "Period", summarise, Value.mean=mean(Value))
 
-techniques <- ggplot(subset(DataFig1, Technique %in% TechniquesEvolution),aes(x = log10(Value), y=reorder(Technique, Value,sum), group=Period)) + geom_point(aes(shape=Period, color=Period, size = Period)) + 
+techniques <- ggplot(subset(DataFig8, Technique %in% TechniquesEvolution),aes(x = log10(Value), y=reorder(Technique, Value,sum), group=Period)) + geom_point(aes(shape=Period, color=Period, size = Period)) + 
   ggtitle(NULL) +
   geom_vline(data=cdat, aes(xintercept=log10(Value.mean),  color=Period),
              linetype=c(4,2,3), size=1.2) + 
