@@ -17,9 +17,7 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 Data related to the code "Code_for_calculating_and_ploting_indicators.R":
 
-countries.csv →
-
-DataFig1topics2.csv →
+[countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/countries.csv) →
 
 InfopartialTSummbycountry.csv →
 
