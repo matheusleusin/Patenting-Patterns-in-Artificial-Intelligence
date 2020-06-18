@@ -15,7 +15,7 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ## Detailed description of each data file:
 
-Data related to the code ["Code_for_calculating_and_ploting_indicators.R"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R):
+Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R):
 
 [countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/countries.csv) →
 
@@ -31,7 +31,7 @@ Data related to the code ["Code_for_calculating_and_ploting_indicators.R"](https
 
 [Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/Info_Priorities.csv) →
 
-Data related to the code ["Comparison_AI_patents_identification_strategies.R"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R):
+Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R):
 
 merged.csv → 
 
