@@ -11,7 +11,7 @@ library(ggplot2)
 library(stringr)
 library(tidyverse)
 library(plyr)
-
+library("readxl")
 
 #1.Raw data analysis ----
 #On the first part of the analysis, we will load our data
@@ -124,6 +124,7 @@ names(newtable)[names(newtable) == 'Group.2'] <- 'Period'
 write.csv2((newtable), file = "InformationByPeriodwithcalculations.csv", row.names = F)
 
 #3.Visualization ----
+#3.1. Fig 3 to 7 ----
 #let's clear our environment again
 rm(list=ls())
 #and again we read the table we just created:
@@ -277,20 +278,158 @@ t2 <- ggplot(subset(newtable, Country %in% topBreedingGrounds3 [1 : 27]),aes(x =
 #plot figures:
 multiplot(f1, t2, cols=1)
 
-#For the techniques figure (Fig 8), we have already separated the data (which we did by selecting the keywords from the title
-#and abstract data):
-DataFig8 <- read.csv("data/DataFig8topics.csv", sep = ";", header = TRUE, dec = ",")
-TechniquesEvolution <- DataFig8$Technique[order(DataFig8$Value, decreasing = TRUE)]
-cdat <- ddply(DataFig8, "Period", summarise, Value.mean=mean(Value))
+#3.2. Fig 8 ----
+#For the techniques figure (Fig 8), we have to reload the data and make some analysis based on keywords:
+#As we already did, last start with an empty environment
+rm(list=ls())
 
-techniques <- ggplot(subset(DataFig8, Technique %in% TechniquesEvolution),aes(x = log10(Value), y=reorder(Technique, Value,sum), group=Period)) + geom_point(aes(shape=Period, color=Period, size = Period)) + 
+#Let's read again the title and abstract data:
+titledata <-read.csv("data/Info_Titles.csv", sep = ";", header = TRUE)
+abstractdata <-read_excel("data/Info_Abstracts.xlsx")
+
+#and transform it into lower case:
+abstractdata$appln_abstract <- tolower(abstractdata$appln_abstract)
+titledata$appln_title <- tolower(titledata$appln_title)
+
+#now we read the main data
+maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+
+maindata2$appln_title <- titledata$appln_title[match(maindata2$appln_id, titledata$appln_id)]
+maindata2$appln_abstract <- abstractdata$appln_abstract[match(maindata2$appln_id, abstractdata$appln_id)]
+
+#filter for inventions:
+maindata <- maindata2[which(maindata2$ipr_type == 'PI'), ]
+
+#select priorities
+priorities <- maindata[which(maindata$earliest_filing_id == maindata$appln_id), ]
+#select only the columns we'll need:
+priorities2 <- priorities[ , c((1),(15),(28),(29))]
+#exclude patents which are not in the period we are analyzing:
+priorities2 <-priorities2[priorities2$earliest_filing_year > 1978,]
+priorities2 <-priorities2[priorities2$earliest_filing_year < 2017,]
+
+#create a new column with the periods we want:
+priorities2$Period <- cut(priorities2$earliest_filing_year, breaks= c(1,1991, 2003, 2016), 
+                          labels=c('1979-1991', '1991-2003', '2003-2015'))
+
+#put a number 1 for each patent, so it's easier to count them
+priorities2$number <- 1
+
+#Now we start picking the patents which have the keywords we want.
+
+#1 - Neural networks - 11,932 priorities
+Neuralnetworks <- unique(c(grep("neural network", priorities2$appln_abstract),
+                           grep("neural network", priorities2$appln_title)))
+NeuralnetworksSet <- priorities2[Neuralnetworks, ]
+#Now we sum how many patents we have per period
+newtable <- aggregate(NeuralnetworksSet[, 6], list(NeuralnetworksSet$Period), sum)
+#and rename the dataset with the name of the technique for which we've collected the data:
+newtable$Technique <- 'Neural Networks'
+
+#2 - Machine learning - 2,391 priorities
+MachineLearning <- unique(c(grep("machine learn", priorities2$appln_abstract), 
+                            grep("machine learn", priorities2$appln_title)))
+MachineLearningSet <- priorities2[MachineLearning, ]
+Temporarytable <- aggregate(MachineLearningSet[, 6], list(MachineLearningSet$Period), sum)
+Temporarytable$Technique <- 'Machine Learning'
+newtable <- rbind(newtable, Temporarytable)
+
+#3 - Expert systems - 2,048 priorities
+ExpertSystems <- unique(c(grep("expert system", priorities2$appln_abstract),
+                          grep("expert system", priorities2$appln_title)))
+ExpertSystemsSet <- priorities2[ExpertSystems, ]
+Temporarytable <- aggregate(ExpertSystemsSet[, 6], list(ExpertSystemsSet$Period), sum)
+Temporarytable$Technique <- 'Expert Systems'
+newtable <- rbind(newtable, Temporarytable)
+
+#4 - Support vector machines - 2,855 priorities
+SupportVectorMachine <- unique(c(grep("support vector machin|support vector network", priorities2$appln_abstract),
+                                 grep("support vector machin|support vector network", priorities2$appln_title)))
+SupportVectorMachineSet <- priorities2[SupportVectorMachine, ]
+Temporarytable <- aggregate(SupportVectorMachineSet[, 6], list(SupportVectorMachineSet$Period), sum)
+Temporarytable$Technique <- 'Support Vector Machine'
+newtable <- rbind(newtable, Temporarytable)
+
+#5 - Fuzzy logic - 1,274 priorities
+Fuzzylogic <- unique(c(grep("fuzzy logic", priorities2$appln_abstract),
+                       grep("fuzzy logic", priorities2$appln_title)))
+FuzzylogicSet <- priorities2[Fuzzylogic, ]
+Temporarytable <- aggregate(FuzzylogicSet[, 6], list(FuzzylogicSet$Period), sum)
+Temporarytable$Technique <- 'Fuzzy Logic'
+newtable <- rbind(newtable, Temporarytable)
+
+#6 - Graphical Model - 335 priorities
+ProbabilisticGraphicalModel <- unique(c(grep("probabilistic graphical model|graphical model|structured probabilistic model", priorities2$appln_abstract),
+                                        grep("probabilistic graphical model|graphical model|structured probabilistic model", priorities2$appln_title)))
+ProbabilisticGraphicalModelSet <- priorities2[ProbabilisticGraphicalModel, ]
+Temporarytable <- aggregate(ProbabilisticGraphicalModelSet[, 6], list(ProbabilisticGraphicalModelSet$Period), sum)
+Temporarytable$Technique <- 'Graphical Model'
+newtable <- rbind(newtable, Temporarytable)
+
+#7 - Supervised and unsupervised learning - 372 priorities
+Supervised_and_unsuper_learn <- unique(c(grep("pervised learn", priorities2$appln_abstract),
+                                         grep("pervised learn", priorities2$appln_title)))
+Supervised_and_unsuper_learnSet <- priorities2[Supervised_and_unsuper_learn, ]
+Temporarytable <- aggregate(Supervised_and_unsuper_learnSet[, 6], list(Supervised_and_unsuper_learnSet$Period), sum)
+Temporarytable$Technique <- 'Sup. and Uns. Learning'
+newtable <- rbind(newtable, Temporarytable)
+
+#8 - Deeplearning - 534 priorities
+Deeplearning <- unique(c(grep("deep learn|deep structured learn|hierarchical learn", priorities2$appln_abstract),
+                         grep("deep learn|deep structured learn|hierarchical learn", priorities2$appln_title)))
+DeeplearningSet <- priorities2[Deeplearning, ]
+Temporarytable <- aggregate(DeeplearningSet[, 6], list(DeeplearningSet$Period), sum)
+Temporarytable$Technique <- 'Deep Learning'
+newtable <- rbind(newtable, Temporarytable)
+
+#9 - Classification and Regression Trees - 222 priorities
+ClassificationandRegressionTrees <- unique(c(grep("classification tree|regression tree|decision tree learn", priorities2$appln_abstract),
+                                             grep("classification tree|regression tree|decision tree learn", priorities2$appln_title)))
+ClassificationandRegressionTreesSet <- priorities2[ClassificationandRegressionTrees, ]
+Temporarytable <- aggregate(ClassificationandRegressionTreesSet[, 6], list(ClassificationandRegressionTreesSet$Period), sum)
+Temporarytable$Technique <- 'Class. and Reg. Trees'
+newtable <- rbind(newtable, Temporarytable)
+
+#10 - Reinforced learning - 214 priorities
+Reinforcedlearning <- unique(c(grep("reinforced learn|reinforcement learn", priorities2$appln_abstract),
+                               grep("reinforced learn|reinforcement learn", priorities2$appln_title)))
+ReinforcedlearningSet <- priorities2[Reinforcedlearning, ]
+Temporarytable <- aggregate(ReinforcedlearningSet[, 6], list(ReinforcedlearningSet$Period), sum)
+Temporarytable$Technique <- 'Reinforced Learning'
+newtable <- rbind(newtable, Temporarytable)
+
+#11 - Logic Programming - 69 priorities
+LogicProgramming <- unique(c(grep("logic programming", priorities2$appln_abstract),
+                             grep("logic programming", priorities2$appln_title)))
+LogicProgrammingSet <- priorities2[LogicProgramming, ]
+Temporarytable <- aggregate(LogicProgrammingSet[, 6], list(LogicProgrammingSet$Period), sum)
+Temporarytable$Technique <- 'Logic Programming'
+newtable <- rbind(newtable, Temporarytable)
+
+#12 - Rule learning - 71 priorities
+RuleLearn <- unique(c(grep("rule learn|rule induction", priorities2$appln_abstract),
+                      grep("rule learn|rule induction", priorities2$appln_title)))
+RuleLearnSet <- priorities2[RuleLearn, ]
+Temporarytable <- aggregate(RuleLearnSet[, 6], list(RuleLearnSet$Period), sum)
+Temporarytable$Technique <- 'Rule Learning'
+newtable <- rbind(newtable, Temporarytable)
+
+newtable$AveragePerYear <- (newtable$x)/12
+
+TechniquesEvolution <- newtable$Technique[order(newtable$AveragePerYear, decreasing = TRUE)]
+#let's put the right names on the table:
+names(newtable)[names(newtable) == 'Group.1'] <- 'Period'
+names(newtable)[names(newtable) == 'x'] <- 'Number of related patents'
+
+cdat <- ddply(newtable, "Period", summarise, AveragePerYear.mean=mean(AveragePerYear))
+
+techniques <- ggplot(subset(newtable, Technique %in% TechniquesEvolution),aes(x = log10(AveragePerYear), y=reorder(Technique, AveragePerYear,sum), group=Period)) + geom_point(aes(shape=Period, color=Period, size = Period)) + 
   ggtitle(NULL) +
-  geom_vline(data=cdat, aes(xintercept=log10(Value.mean),  color=Period),
+  geom_vline(data=cdat, aes(xintercept=log10(AveragePerYear.mean),  color=Period),
              linetype=c(4,2,3), size=1.2) + 
   xlab("Log of the mean number of patents of the technique for the period") +
   ylab("Name of the technique")+
   scale_shape_manual(values=c(15,16,17)) + scale_size_manual(values=c(4,4.5,4)) + theme(legend.position = "right")
 
-#plot figure:
+#Finally, we plot figure our Figure 8:
 techniques
-
