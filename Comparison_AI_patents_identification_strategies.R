@@ -15,16 +15,16 @@ library("readxl")
 #analyze in the second part of this code.
 
 #First we read the title data of our results:
-titledata <-read.csv("data/Info_Titles.csv", sep = ";", header = TRUE)
+titledata <-read.csv("data_main_analysis/Info_Titles.csv", sep = ";", header = TRUE)
 
 #Then we read the abstract data of our results:
-abstractdata <-read_excel("data/Info_Abstracts.xlsx")
+abstractdata <-read_excel("data_main_analysis/Info_Abstracts.xlsx")
 
 #Then we read all the appln_ids from our results:
-maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+maindata2 <- read.csv("data_main_analysis/Info_Full dataset.csv", sep = ";", header = TRUE)
 
 #And finally we read all the priorities from our results. We use this data to separate priorities from non-priorities.
-priorfildata <- read.csv("data/Info_Priorities.csv", sep = ";", header = TRUE)
+priorfildata <- read.csv("data_main_analysis/Info_Priorities.csv", sep = ";", header = TRUE)
 
 #We also put the text from titles and abstracts in lower-case
 abstractdata$appln_abstract <- tolower(abstractdata$appln_abstract)
@@ -58,7 +58,7 @@ write.csv2(priorities, file = "MyQuery1.csv", row.names = TRUE)
 #Query 2 - Query from H. Fujii, S. Managi (2018)
 #We already collected only priorities for the two additional queries. 
 #First we read the data containing appln_ids and the type of patent.
-Query2 <- read.csv("data/Data_comparison/Query 2.csv", sep = ";", header = F)
+Query2 <- read.csv("data_comparison/Query 2.csv", sep = ";", header = F)
 names(Query2) <- c("appln_id", "ipr_type")
 
 #Now we separate Inventions from other types of patents (utility models and design patents)
@@ -86,7 +86,7 @@ write.csv2(NotInQuery2_unique, file = "NotInQuery2_unique2.csv", row.names = TRU
 
 #Query 3 - Query from C.-Y. Tseng, P.-H. Ting (2013)
 #We do the same as we did for Query 2:
-Query3 <- read.csv("data/Data_comparison/Query 3.csv", sep = ";", header = F)
+Query3 <- read.csv("data_comparison/Query 3.csv", sep = ";", header = F)
 names(Query3) <- c("appln_id", "ipr_type")
 Query3 <- Query3[which(Query3$ipr_type == 'PI'), ] #167,307 priorities
 
@@ -106,14 +106,14 @@ write.csv2(NotInQuery3_unique, file = "NotInQuery3_unique2.csv", row.names = TRU
 rm(list=ls())
 
 #load merged data, which contains our classification for 100 patents of each dataset (ours and the 2 others based in IPC codes);
-merged <-read.csv("data/Data_comparison/merged.csv", sep = ";", header = TRUE)
+merged <-read.csv("data_comparison/merged.csv", sep = ";", header = TRUE)
 
 #filter out repeated appln_ids;
 merged <- merged[!duplicated(merged$appln_id), ]
 
 #load unique of each dataset (3 uniques) and add a column to each (saying if it ai or not), matching by appln_id
 #Our Query:
-Myquery <- read.csv("data/Data_comparison/MyQuery1_100.csv", sep = ";", header = TRUE)
+Myquery <- read.csv("data_comparison/MyQuery1_100.csv", sep = ";", header = TRUE)
 Myquery$IsAI <- merged$AI.patent.[match(Myquery$appln_id, merged$appln_id)]
 table(Myquery$IsAI)
 
@@ -124,7 +124,7 @@ table(Myquery$IsAI)
 1-(4/(4+90))
 
 #Query 2:
-Query2 <- read.csv("data/Data_comparison/NotIn1_Query2_unique_100.csv", sep = ";", header = TRUE)
+Query2 <- read.csv("data_comparison/NotIn1_Query2_unique_100.csv", sep = ";", header = TRUE)
 Query2$IsAI <- merged$AI.patent.[match(Query2$appln_id, merged$appln_id)]
 table(Query2$IsAI)
 
@@ -133,7 +133,7 @@ table(Query2$IsAI)
 
 
 #Query 3:
-Query3 <- read.csv("data/Data_comparison/NotIn1_Query3_unique_100.csv", sep = ";", header = TRUE)
+Query3 <- read.csv("data_comparison/NotIn1_Query3_unique_100.csv", sep = ";", header = TRUE)
 Query3$IsAI <- merged$AI.patent.[match(Query3$appln_id, merged$appln_id)]
 table(Query3$IsAI)
 

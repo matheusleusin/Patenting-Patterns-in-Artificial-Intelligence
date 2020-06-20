@@ -17,11 +17,11 @@ library("readxl")
 #On the first part of the analysis, we will load our data
 
 #We start by loading all patents we collected:
-maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+maindata2 <- read.csv("data_main_analysis/Info_Full dataset.csv", sep = ";", header = TRUE)
 
 #and then we load the data from priorities. this data is used as reference only for identifying the patent office where
 #each priority was filled:
-priorfildata <- read.csv("data/Info_Priorities.csv", sep = ";", header = TRUE)
+priorfildata <- read.csv("data_main_analysis/Info_Priorities.csv", sep = ";", header = TRUE)
 
 #Now we separate the patents by kind, keeping only Patents of Invention (PI) and excluding Utility Models (UM) 
 #and Design Patents (DP)
@@ -66,7 +66,7 @@ tabledata2[is.na(tabledata2)] <- 0
 #Now we include number of inventions per country independently of appln kind. We have already collected and summarized
 #the data we use here by collecting all priority patents from patstat that each country filled in each year. This
 #indicator is the indicator named "Total Patents_Country", presented in the equation 2 of the paper.
-infopatentspercountry <-read.csv("data/InfopartialTSummbycountry.csv", sep = ";", header = TRUE)
+infopatentspercountry <-read.csv("data_main_analysis/InfopartialTSummbycountry.csv", sep = ";", header = TRUE)
 infopatentspercountry <- infopatentspercountry[ , c((-1),(-4),(-5),(-6),(-7))]
 names(infopatentspercountry) <- c("Country_code", "Year", "TotalPatentsCountry")
 
@@ -78,7 +78,7 @@ tabledata2[is.na(tabledata2)] <- 0
 #collected and summarized the data we use here by collecting all priority patents from patstat per year (that is, regardless
 #of which country filled them) per year. This indicator is the indicator named "Global Number of Patents", presented in the 
 #equation 2 of the paper.
-infopatentstotalcountry <-read.csv("data/InfototalT1SummAllYears.csv", sep = ";", header = TRUE)
+infopatentstotalcountry <-read.csv("data_main_analysis/InfototalT1SummAllYears.csv", sep = ";", header = TRUE)
 infopatentstotalcountry <- infopatentstotalcountry[ , c((-1),(-3),(-4),(-5),(-6))]
 names(infopatentstotalcountry) <- c("Year", "TotalNumberofPatentsYear")
 tabledata2 <- merge(tabledata2, infopatentstotalcountry, by = "Year")
@@ -178,7 +178,7 @@ is.nan.data.frame <- function(x)
 newtable[is.nan(newtable)] <- 0
 
 #use countries names instead of codes:
-countries <- read.csv("data/countries.csv", sep = ";", header = TRUE)
+countries <- read.csv("data_main_analysis/countries.csv", sep = ";", header = TRUE)
 newtable$Country <- countries$Country[match(newtable$Country, countries$Symb1)]
 
 newtableshort <- newtable
@@ -284,15 +284,15 @@ multiplot(f1, t2, cols=1)
 rm(list=ls())
 
 #Let's read again the title and abstract data:
-titledata <-read.csv("data/Info_Titles.csv", sep = ";", header = TRUE)
-abstractdata <-read_excel("data/Info_Abstracts.xlsx")
+titledata <-read.csv("data_main_analysis/Info_Titles.csv", sep = ";", header = TRUE)
+abstractdata <-read_excel("data_main_analysis/Info_Abstracts.xlsx")
 
 #and transform it into lower case:
 abstractdata$appln_abstract <- tolower(abstractdata$appln_abstract)
 titledata$appln_title <- tolower(titledata$appln_title)
 
 #now we read the main data
-maindata2 <- read.csv("data/Info_Full dataset.csv", sep = ";", header = TRUE)
+maindata2 <- read.csv("data_main_analysis/Info_Full dataset.csv", sep = ";", header = TRUE)
 
 maindata2$appln_title <- titledata$appln_title[match(maindata2$appln_id, titledata$appln_id)]
 maindata2$appln_abstract <- abstractdata$appln_abstract[match(maindata2$appln_id, abstractdata$appln_id)]
