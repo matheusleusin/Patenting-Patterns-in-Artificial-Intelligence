@@ -5,8 +5,8 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ## This repository includes:
 1. [One R code](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R) for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
-2. [Data](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data) necessary for the calculations related to the indexes;
-3. [Data](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data/Data_comparison) used for making the comparison between three distinct queries used for searching AI patents: ours, based on keywords related to AI techniques and proposed on this paper,  and two other strategies based on IPC codes, applied by C.-Y. Tseng, P.-H. Ting (2013) and H. Fujii, S. Managi (2018);
+2. [Data](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_main_analysis) necessary for the calculations related to the indexes;
+3. [Data](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_comparison) used for making the comparison between three distinct queries used for searching AI patents: ours, based on keywords related to AI techniques and proposed on this paper,  and two other strategies based on IPC codes, applied by C.-Y. Tseng, P.-H. Ting (2013) and H. Fujii, S. Managi (2018);
 4. [One R code](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R) for analyzing the aforementioned comparison, which consists of a code for merging our classification of patents being about AI or not with the appln_ids to which they are related;
 
 ### Papers cited for the IPC-based strategies on AI: 
@@ -15,33 +15,33 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ## Detailed description of each data file:
 
-Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R):
+Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R), located in the folder [data_main_analysis](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_main_analysis):
 
-[countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/countries.csv) →
+[countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/countries.csv) →
 
-[InfopartialTSummbycountry.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/InfopartialTSummbycountry.csv) →
+[InfopartialTSummbycountry.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfopartialTSummbycountry.csv) →
 
-[InfototalT1SummAllYears.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/InfototalT1SummAllYears.csv) →
+[InfototalT1SummAllYears.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfototalT1SummAllYears.csv) →
 
-[Info_Titles.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/Info_Titles.csv) →
+[Info_Titles.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Titles.csv) →
 
-[Info_Abstracts.xlsx](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/Info_Abstracts.xlsx) →
+[Info_Abstracts.xlsx](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Abstracts.xlsx) →
 
-[Info_Full dataset.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/Info_Full%20dataset.csv) →
+[Info_Full dataset.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Full%20dataset.csv) →
 
-[Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data/Info_Priorities.csv) →
+[Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Priorities.csv) →
 
-Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R):
+Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R), located in the folder [data_comparison](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_comparison):
 
-merged.csv → 
+[merged.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/merged.csv) → 
 
-MyQuery1_100.csv → 
+[MyQuery1_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/MyQuery1_100.csv) → 
 
-Query2 →
+[Query2](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%202.csv) →
 
-Query3 →
+[Query3](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%203.csv) →
 
-NotIn1_Query2_unique_100.csv →
+[NotIn1_Query2_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query2_unique_100.csv) →
 
-NotIn1_Query3_unique_100.csv → 
+[NotIn1_Query3_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query3_unique_100.csv) → 
 
