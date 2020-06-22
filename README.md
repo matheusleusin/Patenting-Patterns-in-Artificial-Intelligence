@@ -1,7 +1,16 @@
 # Patenting-Patterns-in-Artificial-Intelligence
 
 The repository presented here is related to the paper entitled "Patenting Patterns in Artificial Intelligence: 
-Identifying National and International Breeding Grounds", submitted to the journal "World Patent Information". Short description of the paper:
+Identifying National and International Breeding Grounds", submitted to the journal "World Patent Information". 
+
+*The paper proposes two novel patent-based indicators to differentiate structural differences in the patterns of intellectual property (IP) protection observed across countries. We then apply this indicators, taking the case of AI as example. In particular, we consider (i) to what extent countries specialize in AI and are relevant markets for corresponding IP protection (‘National Breeding Ground’); and (ii) to what extent countries attract AI from abroad for IP protection and extend the protection of their own AI-related IP to foreign markets (‘International Breeding Ground’). A short description of the steps followed in the paper is presented in the figure below.*
+
+<p align="center">
+  <img src="https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Fig2.png" width="750" />
+</p>
+
+---
+
 
 ## This repository includes:
 1. [One R code](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R) for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
