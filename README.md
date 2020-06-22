@@ -24,7 +24,7 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ## Detailed description of each data file:
 
-Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R), located in the folder [data_main_analysis](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_main_analysis):
+**Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R), located in the folder [data_main_analysis](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_main_analysis):**
 
 [countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/countries.csv) → this file is used for replacing the two letters abbreviation of countries by their real names.
 
@@ -40,7 +40,7 @@ Data related to the code ["Code_for_calculating_and_ploting_indicators"](https:/
 
 [Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Priorities.csv) → this file contain general information of priority AI patents identified using our keyword-based search strategy presented in the paper.
 
-Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R), located in the folder [data_comparison](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_comparison):
+**Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R), located in the folder [data_comparison](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_comparison):**
 
 [merged.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/merged.csv) → this file contains our classification for 300 patents regarding they being about AI or not (100 patents from our dataset, and 100 patents from each of the 2 others datasets considered, based in IPC codes). It is used for measuring the accuracy of each strategy regarding the identification of AI patents. 
 
