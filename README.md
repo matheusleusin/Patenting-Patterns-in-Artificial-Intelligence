@@ -26,31 +26,31 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 Data related to the code ["Code_for_calculating_and_ploting_indicators"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R), located in the folder [data_main_analysis](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_main_analysis):
 
-[countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/countries.csv) →
+[countries.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/countries.csv) → this file is used for replacing the two letters abbreviation of countries by their real names.
 
-[InfopartialTSummbycountry.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfopartialTSummbycountry.csv) →
+[InfopartialTSummbycountry.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfopartialTSummbycountry.csv) → this file contain information about the  number of priority patents per country. It is used for calculating the indicator named "Total Patents_Country", presented in the equation 2 of the paper.
 
-[InfototalT1SummAllYears.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfototalT1SummAllYears.csv) →
+[InfototalT1SummAllYears.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/InfototalT1SummAllYears.csv) → this file contain information about the  number of priority patents of all countries, per year. It is used for calculating the indicator named "Global Number of Patents", presented in the equation 2 of the paper.
 
-[Info_Titles.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Titles.csv) →
+[Info_Titles.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Titles.csv) → this file contain all the **titles** of the AI patents identified using our keyword-based search strategy presented in the paper.
 
-[Info_Abstracts.xlsx](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Abstracts.xlsx) →
+[Info_Abstracts.xlsx](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Abstracts.xlsx) → this file contain all the **abstracts** of the AI patents identified using our keyword-based search strategy presented in the paper.
 
-[Info_Full dataset.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Full%20dataset.csv) →
+[Info_Full dataset.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Full%20dataset.csv) → this file contain general information of all AI patents identified using our keyword-based search strategy presented in the paper (i.e. regardless of them being priorities or not).
 
-[Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Priorities.csv) →
+[Info_Priorities.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_main_analysis/Info_Priorities.csv) → this file contain general information of priority AI patents identified using our keyword-based search strategy presented in the paper.
 
 Data related to the code ["Comparison_AI_patents_identification_strategies"](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Comparison_AI_patents_identification_strategies.R), located in the folder [data_comparison](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/tree/master/data_comparison):
 
-[merged.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/merged.csv) → 
+[merged.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/merged.csv) → this file contains our classification for 300 patents regarding they being about AI or not (100 patents from our dataset, and 100 patents from each of the 2 others datasets considered, based in IPC codes). It is used for measuring the accuracy of each strategy regarding the identification of AI patents. 
 
-[MyQuery1_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/MyQuery1_100.csv) → 
+[MyQuery1_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/MyQuery1_100.csv) → this file contain information about the first 100 patents from our dataset.
 
-[Query2](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%202.csv) →
+[Query2](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%202.csv) → this file contain information about all appln_ids collected based on the strategy proposed in *H. Fujii, S. Managi (2018)*
 
-[Query3](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%203.csv) →
+[Query3](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/Query%203.csv) → this file contain information about all appln_ids collected based on the strategy proposed in *C.-Y. Tseng, P.-H. Ting (2013)*
 
-[NotIn1_Query2_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query2_unique_100.csv) →
+[NotIn1_Query2_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query2_unique_100.csv) → this file contain information about the first 100 patents from the dataset collected based on the strategy proposed in *H. Fujii, S. Managi (2018)* that are identified in their dataset and not in ours.
 
-[NotIn1_Query3_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query3_unique_100.csv) → 
+[NotIn1_Query3_unique_100.csv](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/data_comparison/NotIn1_Query3_unique_100.csv) → this file contain information about the first 100 patents from the dataset collected based on the strategy proposed in *C.-Y. Tseng, P.-H. Ting (2013)* that are identified in their dataset and not in ours.
 
