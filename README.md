@@ -10,7 +10,7 @@ Identifying National and International Breeding Grounds", submitted to the journ
 </p>
 
 ---
-
+**Keywords:** *Artificial Intelligence; Digitalization; Patent analysis; International comparison; Specialisation.*
 
 ## This repository includes:
 1. [One R code](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R) for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
