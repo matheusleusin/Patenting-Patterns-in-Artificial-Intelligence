@@ -9,10 +9,10 @@ The paper proposes two novel patent-based indicators to differentiate structural
 </p>
 
 ## Citation 
-### For citation of the **paper**, the following information can be used: 
+For citation of the **paper**, the following information can be used: 
 Leusin, Matheus Eduardo, Jutta Günther, Björn Jindra, and Martin G. Moehrle. "Patenting patterns in Artificial Intelligence: Identifying national and international breeding grounds." *World Patent Information 62 (2020): 101988*.
 
-### For citation of this **repository**, the following information can be used: 
+For citation of this **repository**, the following information can be used: 
 Leusin, Matheus Eduardo, Jutta Günther, Björn Jindra, and Martin G. Moehrle. *GitHub repository of the paper "Patenting patterns in Artificial Intelligence: Identifying national and international breeding grounds"*. Available in: https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence.
 
 ## This repository includes:
