@@ -1,9 +1,8 @@
 # Patenting-Patterns-in-Artificial-Intelligence
 
-The repository presented here is related to the paper entitled "Patenting Patterns in Artificial Intelligence: 
-Identifying National and International Breeding Grounds", submitted to the journal "World Patent Information". 
+This repository refers to the paper "Patenting patterns in Artificial Intelligence: Identifying national and international breeding grounds", published at World Patent Information, Volume 62, September 2020, doi: https://doi.org/10.1016/j.wpi.2020.101988.
 
-*The paper proposes two novel patent-based indicators to differentiate structural differences in the patterns of intellectual property (IP) protection observed across countries. We then apply this indicators, taking the case of AI as example. In particular, we consider (i) to what extent countries specialize in AI and are relevant markets for corresponding IP protection (‘National Breeding Ground’); and (ii) to what extent countries attract AI from abroad for IP protection and extend the protection of their own AI-related IP to foreign markets (‘International Breeding Ground’). A short description of the steps followed in the paper is presented in the figure below.*
+The paper proposes two novel patent-based indicators to differentiate structural differences in the patterns of intellectual property (IP) protection observed across countries. The proposed indicators are appliued for the exemplary case of AI. In particular, we consider (i) to what extent countries specialize in AI and are relevant markets for corresponding IP protection (‘National Breeding Ground’); and (ii) to what extent countries attract AI from abroad for IP protection and extend the protection of their own AI-related IP to foreign markets (‘International Breeding Ground’). A short description of the steps followed in the paper is presented in the figure below.
 
 <p align="center">
   <img src="https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Fig2.png" width="750" />
@@ -11,6 +10,15 @@ Identifying National and International Breeding Grounds", submitted to the journ
 
 ---
 **Keywords:** *Artificial Intelligence; Digitalisation; Patent analysis; International comparison; Specialisation.*
+
+For citation of the **paper**, the following information can be used: 
+Leusin, Matheus Eduardo, Jutta Günther, Björn Jindra, and Martin G. Moehrle. "Patenting patterns in Artificial Intelligence: Identifying national and international breeding grounds." *World Patent Information 62 (2020): 101988*.
+
+For citation of this **repository**, the following information can be used: 
+Leusin, Matheus Eduardo, Jutta Günther, Björn Jindra, and Martin G. Moehrle. *GitHub repository of the paper "Patenting patterns in Artificial Intelligence: Identifying national and international breeding grounds"*. Available in: https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence.
+
+For citation of the paper, the following information can be used: 
+
 
 ## This repository includes:
 1. [One R code](https://github.com/matheusleusin/Patenting-Patterns-in-Artificial-Intelligence/blob/master/Code_for_calculating_and_ploting_indicators.R) for calculating the indexes proposed in the paper (National Breeding Ground and International Breeding Ground indexes) and to plot them as the figures used in the paper;
